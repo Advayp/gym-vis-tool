@@ -13,6 +13,7 @@ export const Navbar = () => {
         color="white"
         bgColor="red.400"
         zIndex={"overlay"}
+        mb={4}
       >
         <Link ml={5} fontWeight="black" fontSize={"2xl"}>
           GymVis
