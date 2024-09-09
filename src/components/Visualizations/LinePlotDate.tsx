@@ -23,6 +23,8 @@ export const LinePlot = ({
   const svgRef = useRef(null);
 
   useEffect(() => {
+    d3.select(svgRef.current).selectChildren("*").remove();
+
     const svg = d3
       .select(svgRef.current)
       .append("svg")
@@ -30,8 +32,6 @@ export const LinePlot = ({
       .attr("height", height)
       .append("g")
       .attr("transform", `translate(${marginLeft},${marginTop})`);
-
-    svg.selectAll("*").remove();
 
     const x = d3
       .scaleUtc()
@@ -42,6 +42,8 @@ export const LinePlot = ({
       .scaleLinear()
       .domain([0, d3.max(data, (d) => d.value)] as number[])
       .range([height - marginBottom, marginTop]);
+
+    svg.selectAll("g").remove();
 
     // X-Axis
     svg
