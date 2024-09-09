@@ -1,7 +1,7 @@
 "use client";
 
 import { FileUpload } from "@/components/FileUpload";
-import { Flex, Heading } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import * as d3 from "d3";
 import { ChangeEvent, useState } from "react";
 
