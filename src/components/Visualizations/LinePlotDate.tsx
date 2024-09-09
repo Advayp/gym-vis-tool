@@ -66,8 +66,8 @@ export const LinePlot = ({
     svg
       .append("path")
       .attr("fill", "none")
-      .attr("stroke", "currentColor")
-      .attr("strokeWidth", "1.5")
+      .attr("stroke", "#8e44ad")
+      .attr("strokeWidth", "2")
       .attr("d", line(data));
   });
 
