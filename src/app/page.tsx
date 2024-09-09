@@ -15,8 +15,9 @@ export default function Home() {
 
     reader.readAsText(e.target.files[0]);
 
-    reader.onload = (e) => {
-      console.log(e.target?.result);
+    reader.onload = (event) => {
+      const data = d3.csvParse(event.target!.result as string);
+      console.log(data);
     };
   };
 
