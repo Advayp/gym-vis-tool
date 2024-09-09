@@ -9,6 +9,51 @@ import { ChangeEvent, useState } from "react";
 export default function Home() {
   const [allData, setAllData] = useState<LineDataPoint[]>([]);
 
+  const eliminateDuplicates = (data: LineDataPoint[]) => {
+    const map = new Map<string, Map<string, number>>();
+
+    // Aggregate max values from each exercise performed
+    for (const elem of data) {
+      const { name, value, date } = elem;
+
+      const parsedDate = date.toLocaleDateString("en-US");
+
+      if (map.has(parsedDate)) {
+        const exerciseMap = map.get(parsedDate)!;
+
+        if (exerciseMap.has(elem.name)) {
+          exerciseMap.set(
+            elem.name,
+            Math.max(exerciseMap.get(elem.name)!, elem.value)
+          );
+        } else {
+          exerciseMap.set(elem.name, elem.value);
+        }
+      } else {
+        const toPut = new Map<string, number>();
+
+        toPut.set(name, value);
+
+        map.set(parsedDate, toPut);
+      }
+    }
+
+    console.log(map);
+
+    let result: LineDataPoint[] = [];
+
+    map.forEach((exerciseMap, date) => {
+      const dateFormatter = d3.timeParse("%m/%d/%Y");
+      const formattedDate = dateFormatter(date);
+
+      exerciseMap.forEach((value, name) => {
+        result = [...result, { name, value, date: formattedDate! }];
+      });
+    });
+
+    return result;
+  };
+
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) {
       return;
@@ -35,9 +80,7 @@ export default function Home() {
 
       console.log(data.columns);
 
-      setAllData(data);
-
-      console.log(allData);
+      setAllData(eliminateDuplicates(data));
     };
   };
 
@@ -62,9 +105,11 @@ export default function Home() {
 
         <Button
           onClick={() => {
-            console.log(
-              allData.filter((d) => d.name == "Bicep Curl (Dumbbell)")
+            let bicepData = allData.filter(
+              (d) => d.name == "Bicep Curl (Dumbbell)"
             );
+
+            console.log(allData);
           }}
         >
           View data
