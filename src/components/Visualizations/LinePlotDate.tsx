@@ -38,16 +38,25 @@ export const LinePlot = ({
       .domain(d3.extent(data, (d) => d.date) as [Date, Date])
       .range([marginLeft, width - marginRight]);
 
+    const T = x.ticks();
+    const f = x.tickFormat(12, "%b %d");
+    T.map(f);
+
     const y = d3
       .scaleLinear()
       .domain([0, d3.max(data, (d) => d.value)] as number[])
       .range([height - marginBottom, marginTop]);
 
     // X-Axis
+
     svg
       .append("g")
       .attr("transform", `translate(0, ${height - marginBottom})`)
-      .call(d3.axisBottom(x))
+      //@ts-ignore
+      .call(
+        //@ts-expect-error
+        d3.axisBottom(x).ticks(d3.timeMonth, 1).tickFormat(d3.timeFormat("%b"))
+      )
       .selectAll("text")
       .style("text-anchor", "middle");
 
