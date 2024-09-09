@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Input } from "@chakra-ui/react";
+import { Button, FormLabel, Input } from "@chakra-ui/react";
 import { ChangeEvent, useRef } from "react";
 
 interface Props {
@@ -10,15 +10,30 @@ interface Props {
 export const FileUpload: React.FC<Props> = ({ onHandle }) => {
   return (
     <>
-      <Input
-        maxW={"50%"}
-        type="file"
-        onChange={(e) => {
-          onHandle(e);
+      <FormLabel
+        bg="red.400"
+        p={2}
+        color="white"
+        textAlign={"center"}
+        htmlFor="data-file"
+        w="25%"
+        borderRadius={"md"}
+        _hover={{
+          backgroundColor: "red.500",
         }}
-        display={"flex"}
-        justifyContent={"center"}
-      />
+        cursor="pointer"
+      >
+        <Input
+          id="data-file"
+          type="file"
+          display={"none"}
+          accept=".csv"
+          onChange={(e) => {
+            onHandle(e);
+          }}
+        />
+        File Upload
+      </FormLabel>
     </>
   );
 };
