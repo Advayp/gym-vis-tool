@@ -86,7 +86,7 @@ export default function Home() {
 
   return (
     <>
-      <Flex justify={"center"} flexDir="column" w="50%">
+      <Flex justify={"center"} align={"center"} flexDir="column" w="100%">
         <FileUpload
           onHandle={(file) => {
             handleUpload(file);

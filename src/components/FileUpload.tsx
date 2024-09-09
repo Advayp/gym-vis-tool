@@ -11,10 +11,13 @@ export const FileUpload: React.FC<Props> = ({ onHandle }) => {
   return (
     <>
       <Input
+        maxW={"50%"}
         type="file"
         onChange={(e) => {
           onHandle(e);
         }}
+        display={"flex"}
+        justifyContent={"center"}
       />
     </>
   );
