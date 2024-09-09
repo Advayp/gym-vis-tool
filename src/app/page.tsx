@@ -2,12 +2,26 @@
 
 import { FileUpload } from "@/components/FileUpload";
 import { LinePlot } from "@/components/Visualizations/LinePlotDate";
-import { Button, Flex } from "@chakra-ui/react";
+import { Button, Flex, Select } from "@chakra-ui/react";
 import * as d3 from "d3";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 export default function Home() {
   const [allData, setAllData] = useState<LineDataPoint[]>([]);
+  const [exerciseList, setExerciseList] = useState<string[]>([]);
+  const [selectedDisplay, setDisplay] = useState<string>("");
+
+  const extractExerciseNames = (data: LineDataPoint[]) => {
+    const set = new Set<string>();
+
+    for (const elem of data) {
+      const { name } = elem;
+
+      set.add(name);
+    }
+
+    return Array.from(set);
+  };
 
   const eliminateDuplicates = (data: LineDataPoint[]) => {
     const map = new Map<string, Map<string, number>>();
@@ -84,6 +98,11 @@ export default function Home() {
     };
   };
 
+  useEffect(() => {
+    setExerciseList(extractExerciseNames(allData));
+    setDisplay(exerciseList[0]);
+  }, [allData]);
+
   return (
     <>
       <Flex justify={"center"} align={"center"} flexDir="column" w="100%">
@@ -92,28 +111,43 @@ export default function Home() {
             handleUpload(file);
           }}
         />
+        {allData.length > 0 && (
+          <>
+            <Select
+              placeholder="Select Exercise"
+              w="25%"
+              defaultValue={exerciseList[0]}
+              onChange={(e) => {
+                setDisplay(e.target.value);
+              }}
+            >
+              {exerciseList.map((e, idx) => {
+                return (
+                  <option value={e} key={idx}>
+                    {e}
+                  </option>
+                );
+              })}
+            </Select>
+            <LinePlot
+              data={allData!.filter((d) => d.name === selectedDisplay)}
+              width={640}
+              height={400}
+              marginTop={20}
+              marginRight={20}
+              marginBottom={50}
+              marginLeft={40}
+            />
 
-        <LinePlot
-          data={allData!.filter((d) => d.name == "Bicep Curl (Dumbbell)")}
-          width={640}
-          height={400}
-          marginTop={20}
-          marginRight={20}
-          marginBottom={50}
-          marginLeft={40}
-        />
-
-        <Button
-          onClick={() => {
-            let bicepData = allData.filter(
-              (d) => d.name == "Bicep Curl (Dumbbell)"
-            );
-
-            console.log(allData);
-          }}
-        >
-          View data
-        </Button>
+            <Button
+              onClick={() => {
+                console.log(allData.filter((d) => d.name === selectedDisplay));
+              }}
+            >
+              View data
+            </Button>
+          </>
+        )}
       </Flex>
     </>
   );
