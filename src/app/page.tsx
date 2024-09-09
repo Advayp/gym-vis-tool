@@ -134,8 +134,8 @@ export default function Home() {
               width={640}
               height={400}
               marginTop={20}
-              marginRight={20}
-              marginBottom={50}
+              marginRight={60}
+              marginBottom={90}
               marginLeft={40}
             />
 
