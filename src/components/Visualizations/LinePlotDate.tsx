@@ -1,4 +1,5 @@
 import * as d3 from "d3";
+import { useEffect, useRef } from "react";
 
 interface Props {
   data: LineDataPoint[];
@@ -19,34 +20,56 @@ export const LinePlot = ({
   marginBottom = 30,
   marginLeft = 40,
 }: Props) => {
-  const x = d3
-    .scaleUtc()
-    .domain(d3.extent(data, (d) => d.date) as [Date, Date])
-    .range([marginLeft, width - marginRight]);
+  const svgRef = useRef(null);
 
-  const y = d3
-    .scaleLinear()
-    .domain([0, d3.max(data, (d) => d.value)] as number[])
-    .range([height - marginBottom, marginTop]);
+  useEffect(() => {
+    const svg = d3
+      .select(svgRef.current)
+      .append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .append("g")
+      .attr("transform", `translate(${marginLeft},${marginTop})`);
 
-  const line = d3
-    .line<LineDataPoint>()
-    .x((d) => x(d.date))
-    .y((d) => y(d.value));
+    svg.selectAll("*").remove();
 
-  return (
-    <svg width={width} height={height}>
-      <path
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        d={line(data)!!}
-      />
-      <g fill="white" stroke="currentColor" strokeWidth="1.5">
-        {data.map((d, i) => (
-          <circle key={i} cx={x(i)} cy={y(d.value)} r="2.5" />
-        ))}
-      </g>
-    </svg>
-  );
+    const x = d3
+      .scaleUtc()
+      .domain(d3.extent(data, (d) => d.date) as [Date, Date])
+      .range([marginLeft, width - marginRight - 0.2 * width]);
+
+    const y = d3
+      .scaleLinear()
+      .domain([0, d3.max(data, (d) => d.value)] as number[])
+      .range([height - marginBottom, marginTop]);
+
+    // X-Axis
+    svg
+      .append("g")
+      .attr("transform", `translate(0, ${height - marginBottom})`)
+      .call(d3.axisBottom(x))
+      .selectAll("text")
+      .style("text-anchor", "middle");
+
+    // Y-Axis
+    svg
+      .append("g")
+      .call(d3.axisLeft(y))
+      .attr("transform", `translate(${marginLeft}, 0)`);
+
+    // Line generator
+    const line = d3
+      .line<LineDataPoint>()
+      .x((d) => x(d.date))
+      .y((d) => y(d.value));
+
+    svg
+      .append("path")
+      .attr("fill", "none")
+      .attr("stroke", "currentColor")
+      .attr("strokeWidth", "1.5")
+      .attr("d", line(data));
+  });
+
+  return <svg width={width} height={height} ref={svgRef}></svg>;
 };

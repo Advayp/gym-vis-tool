@@ -56,7 +56,7 @@ export default function Home() {
           height={400}
           marginTop={20}
           marginRight={20}
-          marginBottom={30}
+          marginBottom={50}
           marginLeft={40}
         />
 
