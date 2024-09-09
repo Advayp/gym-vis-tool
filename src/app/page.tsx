@@ -28,7 +28,7 @@ export default function Home() {
 
         return {
           date: date,
-          value: +d.Weight,
+          value: Math.round(+d.Weight * 100) / 100,
           name: d["Exercise Name"],
         };
       });
@@ -43,7 +43,7 @@ export default function Home() {
 
   return (
     <>
-      <Flex justify={"center"}>
+      <Flex justify={"center"} flexDir="column" w="50%">
         <FileUpload
           onHandle={(file) => {
             handleUpload(file);
