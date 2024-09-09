@@ -19,6 +19,8 @@ export const Navbar = () => {
           GymVis
         </Link>
         <Spacer />
+        <Link mr={5}>About</Link>
+        <Link mr={5}>Visualizations</Link>
       </Flex>
     </>
   );
