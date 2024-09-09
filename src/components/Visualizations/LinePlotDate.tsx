@@ -28,22 +28,20 @@ export const LinePlot = ({
     const svg = d3
       .select(svgRef.current)
       .append("svg")
-      .attr("width", width)
-      .attr("height", height)
+      .attr("width", width + marginLeft + marginRight)
+      .attr("height", height + marginBottom + marginTop)
       .append("g")
       .attr("transform", `translate(${marginLeft},${marginTop})`);
 
     const x = d3
       .scaleUtc()
       .domain(d3.extent(data, (d) => d.date) as [Date, Date])
-      .range([marginLeft, width - marginRight - 0.2 * width]);
+      .range([marginLeft, width - marginRight]);
 
     const y = d3
       .scaleLinear()
       .domain([0, d3.max(data, (d) => d.value)] as number[])
       .range([height - marginBottom, marginTop]);
-
-    svg.selectAll("g").remove();
 
     // X-Axis
     svg
@@ -58,6 +56,23 @@ export const LinePlot = ({
       .append("g")
       .call(d3.axisLeft(y))
       .attr("transform", `translate(${marginLeft}, 0)`);
+
+    // Add X axis label:
+    svg
+      .append("text")
+      .attr("text-anchor", "end")
+      .attr("x", width - marginRight + 10)
+      .attr("y", height - marginBottom + 40)
+      .text("Date");
+
+    // Y axis label:
+    svg
+      .append("text")
+      .attr("text-anchor", "end")
+      .attr("transform", "rotate(-90)")
+      .attr("y", -marginLeft + 20)
+      .attr("x", -marginTop)
+      .text("Weight");
 
     // Line generator
     const line = d3
