@@ -1,4 +1,7 @@
+"use client";
+
 import { Flex, Link, Spacer } from "@chakra-ui/react";
+import { Link as NextLink } from "@chakra-ui/next-js";
 
 export const Navbar = () => {
   return (
@@ -15,12 +18,16 @@ export const Navbar = () => {
         zIndex={"overlay"}
         mb={4}
       >
-        <Link ml={5} fontWeight="black" fontSize={"2xl"}>
+        <NextLink href={"/"} ml={5} fontWeight="black" fontSize={"2xl"}>
           GymVis
-        </Link>
+        </NextLink>
         <Spacer />
-        <Link mr={5}>About</Link>
-        <Link mr={5}>Visualizations</Link>
+        <NextLink href={"/about"} mr={5}>
+          About
+        </NextLink>
+        <NextLink href={"/"} mr={5}>
+          Visualizations
+        </NextLink>
       </Flex>
     </>
   );
