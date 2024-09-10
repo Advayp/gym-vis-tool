@@ -25,7 +25,7 @@ export const Navbar = () => {
         <NextLink href={"/about"} mr={5}>
           About
         </NextLink>
-        <NextLink href={"/"} mr={5}>
+        <NextLink href={"/visualizations"} mr={5}>
           Visualizations
         </NextLink>
       </Flex>
