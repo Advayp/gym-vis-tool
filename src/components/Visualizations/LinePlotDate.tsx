@@ -6,20 +6,19 @@ interface Props {
   data: LineDataPoint[];
   width: number;
   height: number;
-  marginLeft: number;
-  marginRight: number;
-  marginTop: number;
-  marginBottom: number;
+  margin: {
+    left: number;
+    right: number;
+    top: number;
+    bottom: number;
+  };
 }
 
 export const LinePlot = ({
   data,
   width = 640,
   height = 400,
-  marginTop = 20,
-  marginRight = 20,
-  marginBottom = 30,
-  marginLeft = 40,
+  margin: { left, right, top, bottom },
 }: Props) => {
   const svgRef = useRef(null);
 
@@ -29,15 +28,15 @@ export const LinePlot = ({
     const svg = d3
       .select(svgRef.current)
       .append("svg")
-      .attr("width", width + marginLeft + marginRight)
-      .attr("height", height + marginBottom + marginTop)
+      .attr("width", width + left + right)
+      .attr("height", height + bottom + top)
       .append("g")
-      .attr("transform", `translate(${marginLeft},${marginTop})`);
+      .attr("transform", `translate(${left},${top})`);
 
     const x = d3
       .scaleUtc()
       .domain(d3.extent(data, (d) => d.date) as [Date, Date])
-      .range([marginLeft, width - marginRight]);
+      .range([left, width - right]);
 
     const T = x.ticks();
     const f = x.tickFormat(12, "%b %d");
@@ -46,13 +45,13 @@ export const LinePlot = ({
     const y = d3
       .scaleLinear()
       .domain([0, d3.max(data, (d) => d.value)] as number[])
-      .range([height - marginBottom, marginTop]);
+      .range([height - bottom, top]);
 
     // X-Axis
 
     svg
       .append("g")
-      .attr("transform", `translate(0, ${height - marginBottom})`)
+      .attr("transform", `translate(0, ${height - bottom})`)
       //@ts-ignore
       .call(
         //@ts-expect-error
@@ -65,14 +64,14 @@ export const LinePlot = ({
     svg
       .append("g")
       .call(d3.axisLeft(y))
-      .attr("transform", `translate(${marginLeft}, 0)`);
+      .attr("transform", `translate(${left}, 0)`);
 
     // Add X axis label:
     svg
       .append("text")
       .attr("text-anchor", "end")
-      .attr("x", width - marginRight + 10)
-      .attr("y", height - marginBottom + 40)
+      .attr("x", width - right + 10)
+      .attr("y", height - bottom + 40)
       .text("Date");
 
     // Y axis label:
@@ -80,8 +79,8 @@ export const LinePlot = ({
       .append("text")
       .attr("text-anchor", "end")
       .attr("transform", "rotate(-90)")
-      .attr("y", -marginLeft + 20)
-      .attr("x", -marginTop)
+      .attr("y", -left + 20)
+      .attr("x", -top)
       .text("Weight");
 
     // Line generator

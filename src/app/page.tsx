@@ -50,10 +50,12 @@ export default function Home() {
               data={allData!.filter((d) => d.name === selectedDisplay)}
               width={640}
               height={400}
-              marginTop={20}
-              marginRight={60}
-              marginBottom={90}
-              marginLeft={40}
+              margin={{
+                top: 20,
+                right: 60,
+                bottom: 90,
+                left: 40,
+              }}
             />
 
             <Button
