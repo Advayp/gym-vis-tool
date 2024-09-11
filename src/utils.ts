@@ -42,7 +42,7 @@ export const handleUpload = (
 };
 
 // Source: strengthlevel.com/one-rep-max-calculator
-const RepetitiontoPercMap: Map<number, number> = {
+const RepetitiontoPercMap = {
   1: 1,
   2: 0.97,
   3: 0.94,
@@ -76,11 +76,10 @@ const RepetitiontoPercMap: Map<number, number> = {
 };
 
 const calculateOneRepMax = (weight: number, reps: number) => {
-  const percentage = RepetitiontoPercMap.get(reps);
-
-  if (!percentage) {
-    return -1;
+  if (reps in RepetitiontoPercMap) {
+    //@ts-expect-error
+    return weight / RepetitiontoPercMap[reps];
   }
 
-  return weight / percentage;
+  return -1;
 };
