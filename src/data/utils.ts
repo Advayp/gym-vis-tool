@@ -1,16 +1,25 @@
-import { LineDataPoint } from "@/types";
+import { LineDataPoint, StoredInfos } from "@/types";
 import * as d3 from "d3";
+
+export const getOneRepMaxes = (data: LineDataPoint[]) => {
+  if (!data) {
+    return [];
+  }
+
+  for (const elem of data) {
+  }
+};
 
 export const eliminateDuplicates = (data: LineDataPoint[]) => {
   if (!data) {
     return [];
   }
 
-  const map = new Map<string, Map<string, number>>();
+  const map = new Map<string, Map<string, StoredInfos>>();
 
   // Aggregate max values from each exercise performed
   for (const elem of data) {
-    const { name, value, date } = elem;
+    const { name, value, date, reps } = elem;
 
     const parsedDate = date.toLocaleDateString("en-US");
 
@@ -18,17 +27,14 @@ export const eliminateDuplicates = (data: LineDataPoint[]) => {
       const exerciseMap = map.get(parsedDate)!;
 
       if (exerciseMap.has(elem.name)) {
-        exerciseMap.set(
-          elem.name,
-          Math.max(exerciseMap.get(elem.name)!, elem.value)
-        );
+        exerciseMap.set(elem.name, { value: elem.value, reps: elem.reps });
       } else {
-        exerciseMap.set(elem.name, elem.value);
+        exerciseMap.set(elem.name, { value: elem.value, reps: elem.reps });
       }
     } else {
-      const toPut = new Map<string, number>();
+      const toPut = new Map<string, StoredInfos>();
 
-      toPut.set(name, value);
+      toPut.set(name, { value, reps });
 
       map.set(parsedDate, toPut);
     }
@@ -43,7 +49,7 @@ export const eliminateDuplicates = (data: LineDataPoint[]) => {
     const formattedDate = dateFormatter(date);
 
     exerciseMap.forEach((value, name) => {
-      result = [...result, { name, value, date: formattedDate! }];
+      result = [...result, { name, date: formattedDate!, ...value }];
     });
   });
 

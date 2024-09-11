@@ -1,15 +1,10 @@
 import { ChangeEvent } from "react";
 import * as d3 from "d3";
+import { LineDataPoint } from "./types";
 
 export const handleUpload = (
   e: ChangeEvent<HTMLInputElement>,
-  complete: (
-    d: d3.DSVParsedArray<{
-      date: Date;
-      value: number;
-      name: string;
-    }>
-  ) => void
+  complete: (d: d3.DSVParsedArray<LineDataPoint>) => void
 ) => {
   if (!e.target.files) {
     console.log("here");
@@ -32,6 +27,7 @@ export const handleUpload = (
         date: date,
         value: Math.round(+d.Weight * 100) / 100,
         name: d["Exercise Name"],
+        reps: +d.Reps,
       };
     });
 
