@@ -71,7 +71,7 @@ const RepetitiontoPercMap = {
   30: 0.5,
 };
 
-const calculateOneRepMax = (weight: number, reps: number) => {
+export const calculateOneRepMax = (weight: number, reps: number) => {
   if (reps in RepetitiontoPercMap) {
     //@ts-expect-error
     return weight / RepetitiontoPercMap[reps];
