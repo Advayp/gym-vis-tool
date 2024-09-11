@@ -1,5 +1,6 @@
 import { LineDataPoint, StoredInfos } from "@/types";
 import * as d3 from "d3";
+import { calculateOneRepMax } from "@/utils";
 
 export const getOneRepMaxes = (data: LineDataPoint[]) => {
   if (!data) {
@@ -7,7 +8,10 @@ export const getOneRepMaxes = (data: LineDataPoint[]) => {
   }
 
   for (const elem of data) {
+    elem.value = calculateOneRepMax(elem.value, elem.reps);
   }
+
+  return data;
 };
 
 export const eliminateDuplicates = (data: LineDataPoint[]) => {
