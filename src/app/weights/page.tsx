@@ -56,6 +56,10 @@ export default function Weights() {
                 bottom: 90,
                 left: 40,
               }}
+              axesLabels={{
+                xLabel: "Date",
+                yLabel: "Weight",
+              }}
             />
 
             <Button

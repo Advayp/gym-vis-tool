@@ -61,6 +61,10 @@ const OneRepMax = () => {
                 bottom: 90,
                 left: 40,
               }}
+              axesLabels={{
+                xLabel: "Date",
+                yLabel: "1RM",
+              }}
             />
 
             <Button

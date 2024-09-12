@@ -12,6 +12,10 @@ interface Props {
     top: number;
     bottom: number;
   };
+  axesLabels: {
+    yLabel: string;
+    xLabel: string;
+  };
 }
 
 export const LinePlot = ({
@@ -19,6 +23,7 @@ export const LinePlot = ({
   width = 640,
   height = 400,
   margin: { left, right, top, bottom },
+  axesLabels,
 }: Props) => {
   const svgRef = useRef(null);
 
@@ -72,7 +77,7 @@ export const LinePlot = ({
       .attr("text-anchor", "end")
       .attr("x", width - right + 10)
       .attr("y", height - bottom + 40)
-      .text("Date");
+      .text(axesLabels.xLabel);
 
     // Y axis label:
     svg
@@ -81,7 +86,7 @@ export const LinePlot = ({
       .attr("transform", "rotate(-90)")
       .attr("y", -left + 20)
       .attr("x", -top)
-      .text("Weight");
+      .text(axesLabels.yLabel);
 
     // Line generator
     const line = d3
