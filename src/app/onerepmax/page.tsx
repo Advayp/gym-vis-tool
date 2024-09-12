@@ -9,7 +9,7 @@ import {
 } from "@/data/utils";
 import { LineDataPoint } from "@/types";
 import { handleUpload } from "@/utils";
-import { Button, Flex, Heading, Select } from "@chakra-ui/react";
+import { Button, Flex, Select } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 const OneRepMax = () => {

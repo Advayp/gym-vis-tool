@@ -1,6 +1,6 @@
 "use client";
 
-import { Flex, Link, Spacer } from "@chakra-ui/react";
+import { Flex, Spacer } from "@chakra-ui/react";
 import { Link as NextLink } from "@chakra-ui/next-js";
 
 export const Navbar = () => {

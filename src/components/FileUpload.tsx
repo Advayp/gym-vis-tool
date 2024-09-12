@@ -1,7 +1,7 @@
 "use client";
 
-import { Button, FormLabel, Input } from "@chakra-ui/react";
-import { ChangeEvent, useRef } from "react";
+import { FormLabel, Input } from "@chakra-ui/react";
+import { ChangeEvent } from "react";
 
 interface Props {
   onHandle: (e: ChangeEvent<HTMLInputElement>) => void;
