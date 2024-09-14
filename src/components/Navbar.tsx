@@ -28,6 +28,9 @@ export const Navbar = () => {
         <NextLink href={"/visualizations"} mr={5}>
           Visualizations
         </NextLink>
+        <NextLink href={"/dataproc"} mr={5}>
+          Data
+        </NextLink>
       </Flex>
     </>
   );
