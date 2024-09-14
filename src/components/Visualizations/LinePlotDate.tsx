@@ -49,7 +49,7 @@ export const LinePlot = ({
 
     const y = d3
       .scaleLinear()
-      .domain([0, d3.max(data, (d) => d.value)] as number[])
+      .domain([0, d3.max(data, (d) => d.weight)] as number[])
       .range([height - bottom, top]);
 
     // X-Axis
@@ -92,7 +92,7 @@ export const LinePlot = ({
     const line = d3
       .line<DataPoint>()
       .x((d) => x(d.date))
-      .y((d) => y(d.value));
+      .y((d) => y(d.weight));
 
     svg
       .append("path")

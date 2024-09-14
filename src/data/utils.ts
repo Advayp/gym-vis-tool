@@ -8,7 +8,7 @@ export const getOneRepMaxes = (data: DataPoint[]) => {
   }
 
   for (const elem of data) {
-    elem.value = calculateOneRepMax(elem.value, elem.reps);
+    elem.weight = calculateOneRepMax(elem.weight, elem.reps);
   }
 
   return data;
@@ -23,7 +23,7 @@ export const eliminateDuplicates = (data: DataPoint[]) => {
 
   // Aggregate max values from each exercise performed
   for (const elem of data) {
-    const { name, value, date, reps } = elem;
+    const { name, weight, date, reps } = elem;
 
     const parsedDate = date.toLocaleDateString("en-US");
 
@@ -31,14 +31,14 @@ export const eliminateDuplicates = (data: DataPoint[]) => {
       const exerciseMap = map.get(parsedDate)!;
 
       if (exerciseMap.has(elem.name)) {
-        exerciseMap.set(elem.name, { value: elem.value, reps: elem.reps });
+        exerciseMap.set(elem.name, { weight, reps: elem.reps });
       } else {
-        exerciseMap.set(elem.name, { value: elem.value, reps: elem.reps });
+        exerciseMap.set(elem.name, { weight, reps: elem.reps });
       }
     } else {
       const toPut = new Map<string, StoredInfos>();
 
-      toPut.set(name, { value, reps });
+      toPut.set(name, { weight, reps });
 
       map.set(parsedDate, toPut);
     }

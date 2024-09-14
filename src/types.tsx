@@ -1,11 +1,11 @@
 export type DataPoint = {
   date: Date;
-  value: number;
+  weight: number;
   name: string;
   reps: number;
 };
 
 export type StoredInfos = {
-  value: number;
+  weight: number;
   reps: number;
 };

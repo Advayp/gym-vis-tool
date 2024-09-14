@@ -51,7 +51,7 @@ const DataProc = () => {
                 </Thead>
                 <Tbody>
                   {allData.map((e, idx) => {
-                    const { name, date, value, reps } = e;
+                    const { name, date, weight: value, reps } = e;
 
                     return (
                       <Tr key={idx}>

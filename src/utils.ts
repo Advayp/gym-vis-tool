@@ -25,7 +25,7 @@ export const handleUpload = (
 
       return {
         date: date,
-        value: Math.round(+d.Weight * 100) / 100,
+        weight: Math.round(+d.Weight * 100) / 100,
         name: d["Exercise Name"],
         reps: +d.Reps,
       };
