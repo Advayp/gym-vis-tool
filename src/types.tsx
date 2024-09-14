@@ -1,4 +1,4 @@
-export type LineDataPoint = {
+export type DataPoint = {
   date: Date;
   value: number;
   name: string;

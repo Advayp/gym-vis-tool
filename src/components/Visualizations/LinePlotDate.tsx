@@ -1,9 +1,9 @@
-import { LineDataPoint } from "@/types";
+import { DataPoint } from "@/types";
 import * as d3 from "d3";
 import { useEffect, useRef } from "react";
 
 interface Props {
-  data: LineDataPoint[];
+  data: DataPoint[];
   width: number;
   height: number;
   margin: {
@@ -90,7 +90,7 @@ export const LinePlot = ({
 
     // Line generator
     const line = d3
-      .line<LineDataPoint>()
+      .line<DataPoint>()
       .x((d) => x(d.date))
       .y((d) => y(d.value));
 

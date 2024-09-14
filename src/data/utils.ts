@@ -1,8 +1,8 @@
-import { LineDataPoint, StoredInfos } from "@/types";
+import { DataPoint, StoredInfos } from "@/types";
 import * as d3 from "d3";
 import { calculateOneRepMax } from "@/utils";
 
-export const getOneRepMaxes = (data: LineDataPoint[]) => {
+export const getOneRepMaxes = (data: DataPoint[]) => {
   if (!data) {
     return [];
   }
@@ -14,7 +14,7 @@ export const getOneRepMaxes = (data: LineDataPoint[]) => {
   return data;
 };
 
-export const eliminateDuplicates = (data: LineDataPoint[]) => {
+export const eliminateDuplicates = (data: DataPoint[]) => {
   if (!data) {
     return [];
   }
@@ -46,7 +46,7 @@ export const eliminateDuplicates = (data: LineDataPoint[]) => {
 
   console.log(map);
 
-  let result: LineDataPoint[] = [];
+  let result: DataPoint[] = [];
 
   map.forEach((exerciseMap, date) => {
     const dateFormatter = d3.timeParse("%m/%d/%Y");
@@ -60,7 +60,7 @@ export const eliminateDuplicates = (data: LineDataPoint[]) => {
   return result;
 };
 
-export const extractExerciseNames = (data: LineDataPoint[]) => {
+export const extractExerciseNames = (data: DataPoint[]) => {
   const set = new Set<string>();
 
   for (const elem of data) {

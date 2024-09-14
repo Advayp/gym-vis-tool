@@ -3,13 +3,13 @@
 import { FileUpload } from "@/components/FileUpload";
 import { LinePlot } from "@/components/Visualizations/LinePlotDate";
 import { eliminateDuplicates, extractExerciseNames } from "@/data/utils";
-import { LineDataPoint } from "@/types";
+import { DataPoint } from "@/types";
 import { handleUpload } from "@/utils";
 import { Button, Flex, Select } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 export default function Weights() {
-  const [allData, setAllData] = useState<LineDataPoint[]>([]);
+  const [allData, setAllData] = useState<DataPoint[]>([]);
   const [exerciseList, setExerciseList] = useState<string[]>([]);
   const [selectedDisplay, setDisplay] = useState<string>("");
 

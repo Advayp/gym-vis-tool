@@ -1,10 +1,10 @@
 import { ChangeEvent } from "react";
 import * as d3 from "d3";
-import { LineDataPoint } from "./types";
+import { DataPoint } from "./types";
 
 export const handleUpload = (
   e: ChangeEvent<HTMLInputElement>,
-  complete: (d: d3.DSVParsedArray<LineDataPoint>) => void
+  complete: (d: d3.DSVParsedArray<DataPoint>) => void
 ) => {
   if (!e.target.files) {
     console.log("here");
@@ -30,8 +30,6 @@ export const handleUpload = (
         reps: +d.Reps,
       };
     });
-
-    console.log(data);
 
     complete(data);
   };

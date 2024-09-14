@@ -7,13 +7,13 @@ import {
   extractExerciseNames,
   getOneRepMaxes,
 } from "@/data/utils";
-import { LineDataPoint } from "@/types";
+import { DataPoint } from "@/types";
 import { handleUpload } from "@/utils";
 import { Button, Flex, Select } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 const OneRepMax = () => {
-  const [allData, setAllData] = useState<LineDataPoint[]>([]);
+  const [allData, setAllData] = useState<DataPoint[]>([]);
   const [exerciseList, setExerciseList] = useState<string[]>([]);
   const [selectedDisplay, setDisplay] = useState("");
 
