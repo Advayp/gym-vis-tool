@@ -8,7 +8,6 @@ import {
   Button,
   Flex,
   Table,
-  TableCaption,
   TableContainer,
   Tbody,
   Td,
