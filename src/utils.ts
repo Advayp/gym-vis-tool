@@ -77,3 +77,13 @@ export const calculateOneRepMax = (weight: number, reps: number) => {
 
   return -1;
 };
+
+export const exerciseCategories = [
+  "Core",
+  "Arms",
+  "Back",
+  "Chest",
+  "Legs",
+  "Shoulders",
+  "Other",
+];
